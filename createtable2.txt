@@ -1,0 +1,59 @@
+ADV JAVA[JDBC]
+===============
+package com.durgasoft.jdbc;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+public class JdbcApp3 {
+
+public static void main(String[] args)throws Exception {
+Class.forName("oracle.jdbc.OracleDriver");
+Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "durga");
+Statement st = con.createStatement();
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+String query = "";
+String primary_Key_Cols = "";
+System.out.print("Table Name :");
+String tname = br.readLine();
+query = query+"create table "+tname+"(";
+int count = 0;
+while(true) {
+System.out.print("Column Name :");
+String col_Name = br.readLine();
+System.out.print("Column Data Type :");
+String col_Data_Type = br.readLine();
+System.out.print("Primary key Column[yes/no]? :");
+String key_Option = br.readLine();
+
+if(key_Option.equals("yes")) {
+if(count == 0) {
+primary_Key_Cols = primary_Key_Cols+col_Name;
+count = count+1;
+}else {
+primary_Key_Cols = primary_Key_Cols+","+col_Name;
+}
+}
+query = query+col_Name+" "+col_Data_Type+",";
+System.out.print("One more Column[yes/no]? :");
+String option = br.readLine();
+if(option.equals("yes")) {
+continue;
+}else {
+query = query+"primary key("+primary_Key_Cols+")";
+query = query+")";
+break;
+} 
+}
+System.out.println(query);
+st.executeUpdate(query);
+System.out.println("Table "+tname+" Created Successfully");
+br.close();
+st.close();
+con.close();
+}
+
+}
