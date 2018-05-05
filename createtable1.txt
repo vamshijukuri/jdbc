@@ -1,0 +1,43 @@
+ADV JAVA[JDBC]
+===============
+JDBC Application to create table in DB by taking table name as Dynamic input:
+
+package com.durgasoft.jdbc;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+public class JdbcApp1 {
+
+public static void main(String[] args)throws Exception {
+
+//Load and Register Driver
+Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+
+//Establish Connection between Java Appl and DB
+Connection con = DriverManager.getConnection("jdbc:odbc:nag", "system", "durga");
+
+//Create Statement
+Statement st = con.createStatement();
+
+//Take Table name as dynamic input.
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+System.out.print("Table Name :");
+String tname = br.readLine();
+
+//Write SQL Query
+String query = "create table "+tname+"(ENO number primary key, ENAME varchar2(10), ESAL float, EADDR varchar2(10))";
+
+//Execute Query
+st.executeUpdate(query);
+System.out.println("Table "+tname+" Created Successfully");
+
+//Close the resources
+st.close();
+con.close();
+}
+
+}
