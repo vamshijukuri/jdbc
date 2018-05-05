@@ -1,0 +1,41 @@
+ADV JAVA[JDBC]
+-------------------------
+Example to drop table from DB.
+
+package com.durgasoft.jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+public class JdbcApp7 {
+
+public static void main(String[] args) {
+Connection con = null;
+Statement st = null;
+
+try {
+//Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+//con = DriverManager.getConnection("jdbc:odbc:nag", "system", "durga");
+Class.forName("oracle.jdbc.OracleDriver");
+con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "durga");
+
+st = con.createStatement();
+int rowCount1 = st.executeUpdate("create table emp100(eno number primary key)");
+System.out.println(rowCount1);
+int rowCount2 = st.executeUpdate("drop table emp100");
+System.out.println(rowCount2);
+} catch (Exception e) {
+e.printStackTrace();
+}finally {
+try {
+st.close();
+con.close();
+} catch (Exception e) {
+e.printStackTrace();
+}
+}
+
+}
+
+}
