@@ -1,0 +1,37 @@
+import java.sql.*;
+import java.util.*;
+public class multiple
+{
+	public static void main(String[] args)throws Exception
+	{
+		String driver = "oracle.jdbc.oracle driver";
+		String jdbcurl = "jdbc:oracle:thin:@localhost:1521:orcl1";
+		String user = "sys as sysdba";
+		String pwd = "12345";
+		Class.forName(driver);
+		Connection con = DriverManager.getConnection(jdbcurl,user,pwd);
+		Statement st = con.createStatement();
+		Scanner sc = new Scanner(System.in);
+		while(true)
+		{
+			System.out.println("enter employee number:");
+			int eno = sc.nextInt();
+			System.out.println("enter employee name:");
+			String ename = sc.next();
+			System.out.println("enter employee salary:");
+			double esal = sc.nextDouble();
+			System.out.println("enter emp address:");
+			String eaddr = sc.next();
+			String sqlquery="insert into employee values("+eno+",'"+ename+"',"+esal+",'"+eaddr+"');";
+            st.executeUpdate(sqlquery);
+            System.out.println("inserted successfully");
+			System.out.println("do you want enter one more time (yes/no):");
+			String option = sc.next();
+			if(option.equalsIgnoreCase("NO"))
+			{
+				break;
+		    }
+	     }
+    con.close();
+	}
+}
