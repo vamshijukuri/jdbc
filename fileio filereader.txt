@@ -1,0 +1,41 @@
+CORE JAVA[IOSTREAMS]
+-------------------------------------
+
+FileReader:
+------------
+Purpose: To carry data from a particular source file to java 
+application.
+
+Steps:
+1)Create FileReader class object.
+2)Read data from FileReader.
+a)Read char by char in the form of ASCII values.
+b)Convert all ASCII values into characters.
+c)Concatinate all chars to a String variable
+d)Repeate the above steps untill we are getting EOF 
+character[-1] .
+3)Close FileReader
+
+EX:
+---
+import java.io.*;
+class FileReaderEx {
+public static void main(String[] args){
+try(FileReader fr = new FileReader("E:/abc/xyz/abc.txt");
+)
+{
+  String data = "";
+  int val = fr.read();
+  while(val != -1)
+{
+   data = data+(char)val;
+   val = fr.read();
+}
+   System.out.println(data);
+}
+   catch (Exception e)
+{
+   e.printStackTrace();
+}
+}
+}
