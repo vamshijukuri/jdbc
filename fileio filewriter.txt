@@ -1,0 +1,30 @@
+CORE JAVA[IOSTREAMS]
+-------------------------------------
+4.FileWriter:
+---------------
+Purpose: To carry data from JAVA application to a particular 
+target file.
+
+Steps:
+1)Create FileWriter class object.
+2)Declare the data which we want to transfert to target file
+3)Convert data from String type to char[] type.
+4)Write char[] data to FileWriter 
+5)Close FileWriter 
+EX:
+----
+import java.io.*;
+class FileWriterEx{ 
+public static void main(String[] args){
+try(FileWriter fw = new FileWriter("E:/abc/xyz/abc.txt");)
+{
+   String data = "Durga Software Solutions";
+   char[] ch = data.toCharArray();
+   fw.write(ch);
+}
+catch (Exception e)
+{
+   e.printStackTrace();
+}
+}
+}
